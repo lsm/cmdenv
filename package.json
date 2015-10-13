@@ -1,0 +1,29 @@
+{
+  "name": "cmdenv",
+  "version": "0.1.0",
+  "description": "Node.js command line options parser use environment variables as fallback.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lsm/cmdenv.git"
+  },
+  "keywords": [
+    "'command'",
+    "'option'",
+    "'parser'",
+    "'environment'",
+    "'env'"
+  ],
+  "author": "lsm",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lsm/cmdenv/issues"
+  },
+  "homepage": "https://github.com/lsm/cmdenv#readme",
+  "dependencies": {
+    "commander": "2.8.1"
+  }
+}
