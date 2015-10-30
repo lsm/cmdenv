@@ -14,7 +14,7 @@ var cmdenv = module.exports = function(prefix) {
 
   // monkey patch the `parse` function
   commander.parse = function(argv) {
-    var result = parse(argv)
+    var result = parse(argv) || commander
 
     if (result.options.length > 0) {
       // Get value from env if it is not presented in command line options
@@ -61,11 +61,16 @@ var cmdenv = module.exports = function(prefix) {
 
 // example usage
 if (require.main === module) {
-  var result = cmdenv('prefix')
+  var _result = cmdenv('prefix')
     .option('-m --mongodb [url]', 'Set the mongodb server address')
     .option('-r --redis-server [url]', 'Set the redis server address')
     .parse(process.argv)
-  console.log(result);
-  console.log('\nexport PREFIX_MONGODB or PREFIX_REDIS_SERVER to set environmental value for -m or -r');
-  console.log('\nmongodb: %s, redis-server: %s', result.mongodb, result.redisServer)
+
+  if (!_result.mongodb && !_result.redisServer) {
+    console.log('Example:\n');
+    console.log(_result.optionHelp());
+    console.log('\nexport PREFIX_MONGODB or PREFIX_REDIS_SERVER to set environmental value for -m or -r');
+  }
+
+  console.log('\nmongodb: %s, redis-server: %s', _result.mongodb, _result.redisServer)
 }
