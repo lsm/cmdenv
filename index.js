@@ -3,10 +3,13 @@
  */
 
 var env = process.env
-var commander = require('commander')
-var parse = commander.parse.bind(commander)
+var Command = require('commander').Command
+
 
 var cmdenv = module.exports = function(prefix) {
+  var commander = new Command()
+  var parse = commander.parse.bind(commander)
+
   var _prefix
   if (prefix && 'string' === typeof prefix) {
     _prefix = prefix.toUpperCase()
