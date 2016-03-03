@@ -16,8 +16,6 @@ var cmdenv = module.exports = function(prefix) {
   commander.parse = function(argv) {
     var result = parse(argv) || commander
 
-    console.log(result.options);
-
     if (result.options.length > 0) {
       // Get value from env if it is not presented in command line options
       result.options.forEach(function(opt) {
