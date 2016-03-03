@@ -2,22 +2,21 @@
  * cmdenv.js - a utility which merges environmental variables with command line options
  */
 
-var env = process.env
 var Command = require('commander').Command
-
 
 var cmdenv = module.exports = function(prefix) {
   var commander = new Command()
   var parse = commander.parse.bind(commander)
 
   var _prefix
-  if (prefix && 'string' === typeof prefix) {
+  if (prefix && 'string' === typeof prefix)
     _prefix = prefix.toUpperCase()
-  }
 
   // monkey patch the `parse` function
   commander.parse = function(argv) {
     var result = parse(argv) || commander
+
+    console.log(result.options);
 
     if (result.options.length > 0) {
       // Get value from env if it is not presented in command line options
@@ -25,6 +24,7 @@ var cmdenv = module.exports = function(prefix) {
         if (opt.long) {
           // Should only works for options with long name
           var optEnvName
+          var optInArgv = argv.indexOf(opt.long) > -1
           var optLongName = opt.long.slice(2)
           optLongName = optLongName.split('-')
 
@@ -48,9 +48,8 @@ var cmdenv = module.exports = function(prefix) {
 
           // Only get value from environment when option is defined
           // but not presented in command line.
-          if ('undefined' === typeof result[optLongName] && env[envName]) {
-            result[optLongName] = env[envName]
-          }
+          if (false === optInArgv && process.env[envName])
+            result[optLongName] = process.env[envName]
         }
       })
     }
