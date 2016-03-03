@@ -1,6 +1,6 @@
 {
   "name": "cmdenv",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Node.js command line options parser use environment variables as fallback.",
   "main": "index.js",
   "scripts": {
