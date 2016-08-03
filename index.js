@@ -48,6 +48,11 @@ var cmdenv = module.exports = function(prefix) {
           // but not presented in command line.
           if (false === optInArgv && process.env[envName])
             result[optLongName] = process.env[envName]
+
+          // Also keep a copy of the value with environment variable name if
+          // defined.
+          if (result.hasOwnProperty(optLongName))
+            result[envName] = result[optLongName]
         }
       })
     }
@@ -72,5 +77,6 @@ if (require.main === module) {
     console.log('\nexport PREFIX_MONGODB or PREFIX_REDIS_SERVER to set environmental value for -m or -r');
   }
 
-  console.log('\nmongodb: %s, redis-server: %s', _result.mongodb, _result.redisServer)
+  console.log('\nmongodb: %s, redisServer: %s', _result.mongodb, _result.redisServer)
+  console.log('\nPREFIX_MONGODB: %s, PREFIX_REDIS_SERVER: %s\n', _result.PREFIX_MONGODB, _result.PREFIX_REDIS_SERVER)
 }
